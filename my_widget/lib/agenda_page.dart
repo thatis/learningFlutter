@@ -58,28 +58,16 @@ class _AgendaPageState extends State<AgendaPage> {
                               textAlign: TextAlign.center,
                             ),
                           ),
-                          GridView.count(
-                            crossAxisCount: 7,
-                            children: List.generate(31, (index) {
-                              return Center(
-                                child: Text(
-                                  '${index + 1}',
-                                  style:
-                                      Theme.of(context).textTheme.headlineSmall,
-                                ),
-                              );
-                            }),
+                          Wrap(
+                            children: [
+                              for (var day in namesOfWeekDays)
+                                writeWeekDayName(day),
+                            ],
                           ),
-                          // Wrap(
-                          //   children: [
-                          //     for (var day in namesOfWeekDays)
-                          //       writeWeekDayName(day),
-                          //   ],
-                          // ),
-                          // for (var i = 0; 0 <= i && i < 4; i++)
-                          //   writeWeek(i * 7 + 1, 7),
-                          // const SizedBox(height: 2),
-                          // writeWeek(29, 3),
+                          for (var i = 0; 0 <= i && i < 4; i++)
+                            writeWeek(i * 7 + 1, 7),
+                          const SizedBox(height: 2),
+                          writeWeek(29, 3),
                         ],
                       ),
                     ],
@@ -105,113 +93,113 @@ class _AgendaPageState extends State<AgendaPage> {
     );
   }
 
-  // writeWeekDayName(String weekDay) {
-  //   return Container(
-  //     margin: const EdgeInsets.all(2),
-  //     width: 46,
-  //     height: 46,
-  //     decoration: BoxDecoration(
-  //       color: Colors.amber.withOpacity(0.40),
-  //       border: Border.all(width: 0, color: Colors.amber),
-  //       borderRadius: BorderRadius.circular(6),
-  //     ),
-  //     child: Text(
-  //       weekDay,
-  //       style: const TextStyle(
-  //         fontSize: 26,
-  //       ),
-  //       textAlign: TextAlign.center,
-  //     ),
-  //   );
-  // }
+  writeWeekDayName(String weekDay) {
+    return Container(
+      margin: const EdgeInsets.all(2),
+      width: 46,
+      height: 46,
+      decoration: BoxDecoration(
+        color: Colors.amber.withOpacity(0.40),
+        border: Border.all(width: 0, color: Colors.amber),
+        borderRadius: BorderRadius.circular(6),
+      ),
+      child: Text(
+        weekDay,
+        style: const TextStyle(
+          fontSize: 26,
+        ),
+        textAlign: TextAlign.center,
+      ),
+    );
+  }
 
-  // writeWeek(int firstDay, int daysInAWeek) {
-  //   if (daysInAWeek < 7) {
-  //     return writeLastWeek(firstDay, daysInAWeek);
-  //   } else {
-  //     return writeWeekDays(firstDay, daysInAWeek);
-  //   }
-  // }
+  writeWeek(int firstDay, int daysInAWeek) {
+    if (daysInAWeek < 7) {
+      return writeLastWeek(firstDay, daysInAWeek);
+    } else {
+      return writeWeekDays(firstDay, daysInAWeek);
+    }
+  }
 
-  // writeLastWeek(int firstDay, int daysInAWeek) {
-  //   return Row(
-  //     mainAxisAlignment: MainAxisAlignment.start,
-  //     children: [
-  //       const SizedBox(
-  //         width: 4,
-  //       ),
-  //       for (var i = firstDay; firstDay <= i && i < firstDay + daysInAWeek; i++)
-  //         Row(
-  //           mainAxisAlignment: MainAxisAlignment.start,
-  //           children: [
-  //             Ink(
-  //               width: 46,
-  //               height: 46,
-  //               padding: const EdgeInsets.all(2),
-  //               decoration: BoxDecoration(
-  //                   shape: BoxShape.rectangle,
-  //                   color: Colors.amber.withOpacity(0.50),
-  //                   borderRadius: BorderRadius.circular(10)),
-  //               child: InkWell(
-  //                 onTap: () {
-  //                   Navigator.pushReplacement(
-  //                     context,
-  //                     MaterialPageRoute(
-  //                       builder: (context) => DiaryPage(day: i),
-  //                     ),
-  //                   );
-  //                 },
-  //                 highlightColor: Colors.amber.withOpacity(0.30),
-  //                 splashColor: Colors.amber.withOpacity(0.20),
-  //                 child: Text(
-  //                   '$i',
-  //                   style: const TextStyle(fontSize: 26),
-  //                   textAlign: TextAlign.center,
-  //                 ),
-  //               ),
-  //             ),
-  //             const SizedBox(
-  //               width: 4,
-  //             ),
-  //           ],
-  //         ),
-  //     ],
-  //   );
-  // }
+  writeLastWeek(int firstDay, int daysInAWeek) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        const SizedBox(
+          width: 4,
+        ),
+        for (var i = firstDay; firstDay <= i && i < firstDay + daysInAWeek; i++)
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Ink(
+                width: 46,
+                height: 46,
+                padding: const EdgeInsets.all(2),
+                decoration: BoxDecoration(
+                    shape: BoxShape.rectangle,
+                    color: Colors.amber.withOpacity(0.50),
+                    borderRadius: BorderRadius.circular(10)),
+                child: InkWell(
+                  onTap: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => DiaryPage(day: i),
+                      ),
+                    );
+                  },
+                  highlightColor: Colors.amber.withOpacity(0.30),
+                  splashColor: Colors.amber.withOpacity(0.20),
+                  child: Text(
+                    '$i',
+                    style: const TextStyle(fontSize: 26),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
+              const SizedBox(
+                width: 4,
+              ),
+            ],
+          ),
+      ],
+    );
+  }
 
-  // writeWeekDays(int firstDay, int daysInAWeek) {
-  //   return Wrap(
-  //     children: List.generate(daysInAWeek, (index) {
-  //       return Container(
-  //         margin: const EdgeInsets.all(2),
-  //         child: Ink(
-  //           width: 46,
-  //           height: 46,
-  //           padding: const EdgeInsets.all(4),
-  //           decoration: BoxDecoration(
-  //               shape: BoxShape.rectangle,
-  //               color: Colors.amber.withOpacity(0.50),
-  //               borderRadius: BorderRadius.circular(10)),
-  //           child: InkWell(
-  //             onTap: () {
-  //               Navigator.pushReplacement(
-  //                 context,
-  //                 MaterialPageRoute(
-  //                   builder: (context) => DiaryPage(day: index + firstDay),
-  //                 ),
-  //               );
-  //             },
-  //             highlightColor: Colors.amber.withOpacity(0.30),
-  //             splashColor: Colors.amber.withOpacity(0.20),
-  //             child: Text(
-  //               '${index + firstDay}',
-  //               style: const TextStyle(fontSize: 26),
-  //               textAlign: TextAlign.center,
-  //             ),
-  //           ),
-  //         ),
-  //       );
-  //     }),
-  //   );
-  // }
+  writeWeekDays(int firstDay, int daysInAWeek) {
+    return Wrap(
+      children: List.generate(daysInAWeek, (index) {
+        return Container(
+          margin: const EdgeInsets.all(2),
+          child: Ink(
+            width: 46,
+            height: 46,
+            padding: const EdgeInsets.all(4),
+            decoration: BoxDecoration(
+                shape: BoxShape.rectangle,
+                color: Colors.amber.withOpacity(0.50),
+                borderRadius: BorderRadius.circular(10)),
+            child: InkWell(
+              onTap: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => DiaryPage(day: index + firstDay),
+                  ),
+                );
+              },
+              highlightColor: Colors.amber.withOpacity(0.30),
+              splashColor: Colors.amber.withOpacity(0.20),
+              child: Text(
+                '${index + firstDay}',
+                style: const TextStyle(fontSize: 26),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ),
+        );
+      }),
+    );
+  }
 }
